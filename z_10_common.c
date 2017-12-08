@@ -11,6 +11,13 @@ static char * reverse(char * s);
 // **************************************** タイマ
 static my_timer_t timer_value = {0, 0, 0};
 static char timer_char[] = {'0', ':', '0', '0', ':', '0', '0' };
+static my_timer_t my_timer_vec[5] = {
+  {0, 0, 0},
+  {0, 0, 0},
+  {0, 0, 0},
+  {0, 0, 0},
+  {0, 0, 0}
+};
 static unsigned int timer_counter = 0;
 // **************************************** PID
 static pid_para_t pid_para = {
