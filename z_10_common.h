@@ -42,14 +42,16 @@ typedef struct {
 extern void func_z_10_common_clear_timer(void);
 // タイマの値を取得する関数
 extern const timer_t * func_z_10_common_fetch_timer(void);
+// タイマの数字を文字に変換する関数
+extern void func_z_10_common_format_timer(void);
+// 現在のタイマの文字列を取得する関数（タイマの数字を文字に変換する関数をこの中で使う）
+extern const char * func_z_10_common_fetch_timer_char(void);
 // タイマカウンタの値を取得する関数
 extern const unsigned int * func_z_10_common_fetch_timer_counter(void);
 // タイマの値を10ミリ秒インクリメントする関数
 extern void func_z_10_common_increment_timer(void);
 // タイマカウンタの値を1(10ミリ秒分)インクリメントする関数
 extern void func_z_10_common_increment_timer_counter(void);
-// タイマの数字を文字に変換する関数
-extern void func_z_10_common_format_timer(timer_t timer);
 // 2つのタイマの値が同じか同じでないか判別する関数
 extern bool func_z_10_common_are_same_timer(timer_t * timer_1, timer_t * timer_2);
 // 2つのタイマカウンタの値が同じか同じでないか判別する関数

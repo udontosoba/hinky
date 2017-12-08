@@ -30,6 +30,19 @@ void func_z_10_common_clear_timer(void){
 const timer_t * func_z_10_common_fetch_timer(void){
   return &timer_value;
 }
+void func_z_10_common_format_timer(void){
+  itoa(timer_value.minute, &timer_char[0], 1, ' '); //分
+  timer_char[1] = ':';
+  itoa(timer_value.minute, &timer_char[2], 2, '0'); // 秒
+  timer_char[4] = ':';
+  itoa(timer_value.minute, &timer_char[5], 2, '0'); // 10ミリ秒
+  return;
+}
+const char * func_z_10_common_fetch_timer_char(void){
+  func_z_10_common_format_timer();
+  return &timer_char;
+  return
+}
 const unsigned int * func_z_10_common_fetch_timer_counter(void){
   return &timer_counter;
 }
@@ -54,15 +67,6 @@ void func_z_10_common_increment_timer_counter(void){
       }
     }
   }
-
-  return;
-}
-void func_z_10_common_format_timer(timer_t timer){
-  itoa(timer_value.minute, &timer_char[0], 1, ' '); //分
-  timer_char[1] = ':';
-  itoa(timer_value.minute, &timer_char[2], 2, '0'); // 秒
-  timer_char[4] = ':';
-  itoa(timer_value.minute, &timer_char[5], 2, '0'); // 10ミリ秒
   return;
 }
 bool func_z_10_common_are_same_timer(timer_t * timer_1, timer_t * timer_2){
