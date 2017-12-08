@@ -10,7 +10,7 @@ typedef struct {
   unsigned char minute; //分
   unsigned char sec; //秒
   unsigned char millisec_10; //10ミリ秒
-}timer_t;
+}my_timer_t;
 
 // PID
 typedef struct {
@@ -29,7 +29,7 @@ typedef struct {
 }pid_para_t;
 
 // コース
-typdef enum {c_1_hasitemae, c_2_hasiowari, c_3_tonnnerutemae, c_4_tonnneruowari, c_5_goaltemae}cource_t;
+typedef enum {c_1_hasitemae, c_2_hasiowari, c_3_tonnnerutemae, c_4_tonnneruowari, c_5_goaltemae}cource_t;
 
 // キャリブ
 typedef struct {
@@ -39,10 +39,13 @@ typedef struct {
 }math_features_t;
 
 // **************************************** タイマ
+// itoa
+char * itoa(int n, char *s, int w, char pad);
+
 // タイマの初期化を行う関数
 extern void func_z_10_common_clear_timer(void);
 // タイマの値を取得する関数
-extern const timer_t * func_z_10_common_fetch_timer(void);
+extern const my_timer_t * func_z_10_common_fetch_timer(void);
 // タイマの数字を文字に変換する関数
 extern void func_z_10_common_format_timer(void);
 // 現在のタイマの文字列を取得する関数（タイマの数字を文字に変換する関数をこの中で使う）
@@ -54,7 +57,7 @@ extern void func_z_10_common_increment_timer(void);
 // タイマカウンタの値を1(10ミリ秒分)インクリメントする関数
 extern void func_z_10_common_increment_timer_counter(void);
 // 2つのタイマの値が同じか同じでないか判別する関数
-extern bool func_z_10_common_are_same_timer(timer_t * timer_1, timer_t * timer_2);
+extern bool func_z_10_common_are_same_timer(my_timer_t * timer_1, my_timer_t * timer_2);
 // 2つのタイマカウンタの値が同じか同じでないか判別する関数
 extern bool func_z_10_common_are_same_timer_counter(unsigned int * timer_counter_1, unsigned int * timer_counter_2);
 // **************************************** PID

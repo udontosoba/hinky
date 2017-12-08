@@ -1,14 +1,19 @@
 /* z_10_common.c */
 #include "z_10_common.h"
-#include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
+
+#define NULL ((void *)0)
+#define abs(x) (((x) < 0) ? -(x) : (x))
+
+static char * reverse(char * s);
 
 // **************************************** タイマ
-static timer_t timer_value = {0, 0, 0};
-static char timer_char[] = {'0', ':', '0', '0', ':', '0', '0' }
+static my_timer_t timer_value = {0, 0, 0};
+static char timer_char[] = {'0', ':', '0', '0', ':', '0', '0' };
 static unsigned int timer_counter = 0;
 // **************************************** PID
-static ipd_para_t ipd_para = {
+static pid_para_t pid_para = {
   {0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0},
   {0, 0, 0, 0, 0, 0}
@@ -20,14 +25,41 @@ static math_features_t black_info = {0 ,0, 0}; //黒色のキャリブ情報
 static math_features_t white_info = {0 ,0, 0}; //白色のキャリブ情報
 
 ////////////////////////////////////////////////////////
+char * itoa(int n, char *s, int w, char pad){
+  int i, sign;
+  sign = n;
+  i = 0;
+  do{
+    s[i++] = abs(n % 10) + '0';
+  } while((n /= 10 != 0));
+
+  if(sign < 0){
+    s[i++] = '-';
+  }
+  while(i < w){
+    s[i++] = pad;
+  }
+  s[i] = '\0';
+  return reverse(s);
+}
+static char * reverse(char *s){
+  int c, i, j;
+  for(i = 0, j = strlen((const char *)s) - 1; i < j; i++, j--){
+    c = s[i];
+    s[i] = s[j];
+    s[j] = c;
+  }
+  return s;
+}
+
 void func_z_10_common_clear_timer(void){
   timer_value.minute = 0;
   timer_value.sec = 0;
-  timer_value.millisec = 0;
+  timer_value.millisec_10 = 0;
   timer_counter = 0;
   return;
 }
-const timer_t * func_z_10_common_fetch_timer(void){
+const my_timer_t * func_z_10_common_fetch_timer(void){
   return &timer_value;
 }
 void func_z_10_common_format_timer(void){
@@ -46,10 +78,6 @@ const unsigned int * func_z_10_common_fetch_timer_counter(void){
   return &timer_counter;
 }
 void func_z_10_common_increment_timer(void){
-  timer_counter++;
-  return;
-}
-void func_z_10_common_increment_timer_counter(void){
   if(timer_value.millisec_10 <= 98){
     timer_value.millisec_10++;
   }else{
@@ -68,7 +96,11 @@ void func_z_10_common_increment_timer_counter(void){
   }
   return;
 }
-bool func_z_10_common_are_same_timer(timer_t * timer_1, timer_t * timer_2){
+void func_z_10_common_increment_timer_counter(void){
+  timer_counter++;
+  return;
+}
+bool func_z_10_common_are_same_timer(my_timer_t * timer_1, my_timer_t * timer_2){
   if(timer_1->minute != timer_2->minute){
     return false;
   }
@@ -115,10 +147,10 @@ void func_z_10_common_increment_num_in_value(value_t * value, int keta){
       p_int = &(value->decimal_third);
       break;
     default:
-      p_int = null;
+      p_int = NULL;
       break;
   }
-  if(p_int == null){
+  if(p_int == NULL){
     return;
   }
   if((*p_int) <= 8){
@@ -147,10 +179,10 @@ void func_z_10_common_decrement_num_in_value(value_t * value, int keta){
       p_int = &(value->decimal_third);
       break;
     default:
-      p_int = null;
+      p_int = NULL;
       break;
   }
-  if(p_int == null){
+  if(p_int == NULL){
     return;
   }
   if((*p_int) >= 1){
