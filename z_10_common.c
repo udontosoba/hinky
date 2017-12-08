@@ -41,12 +41,16 @@ void func_z_10_common_increment_timer_counter(void){
   if(timer_value.millisec_10 <= 98){
     timer_value.millisec_10++;
   }else{
+    timer_value.millisec_10 = 0;
     if(timer_value.sec < 58){
-      timer_value.millisec_10 = 0;
       timer_value.sec++;
     }else{
+      timer_value.sec = 0;
       if(timer_value.minute < 8){
-
+        timer_value.minute++;
+      }else{
+        // 0:00:00に初期化（timer_countは個別に初期化すること）
+        timer_value.minute = 0;
       }
     }
   }
