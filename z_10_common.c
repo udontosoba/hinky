@@ -11,7 +11,8 @@ static char * reverse(char * s);
 // **************************************** タイマ
 static my_timer_t timer_value = {0, 0, 0};
 static char timer_char[] = {'0', ':', '0', '0', ':', '0', '0' };
-static my_timer_t my_timer_vec[5] = {
+static my_timer_t my_timer_vec[6] = {
+  {0, 0, 0},
   {0, 0, 0},
   {0, 0, 0},
   {0, 0, 0},
@@ -60,9 +61,15 @@ static char * reverse(char *s){
 }
 
 void func_z_10_common_clear_timer(void){
+  int i = 0;
   timer_value.minute = 0;
   timer_value.sec = 0;
   timer_value.millisec_10 = 0;
+  for(i = 0; i < 6; i++) {
+    my_timer_vec[i].minute = 0;
+    my_timer_vec[i].sec = 0;
+    my_timer_vec[i].millisec_10 = 0;
+  }
   timer_counter = 0;
   return;
 }
@@ -125,6 +132,12 @@ bool func_z_10_common_are_same_timer_counter(unsigned int * timer_counter_1, uns
     return false;
   }
   return true;
+}
+void func_z_10_common_update_timer_according_to_rap_time(cource_t cource_hoge){
+  cource = cource_hoge;
+  my_timer_vec[cource].minute = timer_value.minute;
+  my_timer_vec[cource].sec = timer_value.sec;
+  my_timer_vec[cource].millisec_10 = timer_value.millisec_10;
 }
 
 ////////////////////////////////////////////////////////

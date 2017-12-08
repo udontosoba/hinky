@@ -29,7 +29,7 @@ typedef struct {
 }pid_para_t;
 
 // コース
-typedef enum {c_1_hasitemae, c_2_hasiowari, c_3_tonnnerutemae, c_4_tonnneruowari, c_5_goaltemae}cource_t;
+typedef enum {c_0_start, c_1_hasitemae, c_2_hasiowari, c_3_tonnnerutemae, c_4_tonnneruowari, c_5_goaltemae}cource_t;
 
 // キャリブ
 typedef struct {
@@ -60,6 +60,10 @@ extern void func_z_10_common_increment_timer_counter(void);
 extern bool func_z_10_common_are_same_timer(my_timer_t * timer_1, my_timer_t * timer_2);
 // 2つのタイマカウンタの値が同じか同じでないか判別する関数
 extern bool func_z_10_common_are_same_timer_counter(unsigned int * timer_counter_1, unsigned int * timer_counter_2);
+
+// courceが切り替わったら現在時刻を現在のcourceに対応する時刻変数に格納する．
+extern void func_z_10_common_update_timer_according_to_rap_time(cource_t cource);
+
 // **************************************** PID
 // PID値を取得する関数(res->p.valueでアクセスできる，resはこの関数の返り値．PIDの関数の設計を間違えたので返り値をconstに出来なかった．)
 extern pid_para_t * func_z_10_common_fetch_pid_para(void);
