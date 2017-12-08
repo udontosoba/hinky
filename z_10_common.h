@@ -69,7 +69,8 @@ extern void func_z_10_common_decrement_num_in_value(value_t * value, int keta);
 // value_tの値を設定する(設定する十の位，一の位，小数第一位，小数第二位，小数第三位の情報が必要)
 extern void func_z_10_common_set_value(value_t * value, unsigned int integer_10_hoge, unsigned int integer_1_hoge, unsigned int decimal_first_hoge, unsigned int decimal_second_hoge, unsigned int decimal_third_hoge);
 // **************************************** コース
-
+// コースの値を取得する関数
+extern const cource_t * func_z_10_common_fetch_cource(void);
 // **************************************** キャリブ
 
 #endif

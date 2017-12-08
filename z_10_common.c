@@ -41,7 +41,6 @@ void func_z_10_common_format_timer(void){
 const char * func_z_10_common_fetch_timer_char(void){
   func_z_10_common_format_timer();
   return &timer_char;
-  return
 }
 const unsigned int * func_z_10_common_fetch_timer_counter(void){
   return &timer_counter;
@@ -168,4 +167,8 @@ void func_z_10_common_set_value(value_t * value, unsigned int integer_10_hoge, u
   value->decimal_second = decimal_second_hoge;
   value->decimal_third = decimal_third_hoge;
   func_z_10_common_update_integrated_value(value);
+}
+////////////////////////////////////////////////////////
+const cource_t * func_z_10_common_fetch_cource(void){
+  return &cource;
 }
