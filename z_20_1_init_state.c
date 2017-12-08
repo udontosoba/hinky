@@ -4,6 +4,7 @@
 #include "z_00_1_io_setting.h"
 #include "ev3api.h"             // EV3_PORT_hogeの定義が書かれてある．
 #include "z_10_common.h"
+#include <stdbool.h>
 
 State func_z_20_1_init_state_main(void)
 {
