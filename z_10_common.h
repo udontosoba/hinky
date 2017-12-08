@@ -19,6 +19,7 @@ typedef struct {
   unsigned int decimal_first; //小数第一位
   unsigned int decimal_second; //小数第二位
   unsigned int decimal_third; //小数第三位
+  double value; // 上記の情報を統合して得られる数
 }value_t;
 
 typedef struct {
@@ -57,7 +58,8 @@ extern bool func_z_10_common_are_same_timer(timer_t * timer_1, timer_t * timer_2
 // 2つのタイマカウンタの値が同じか同じでないか判別する関数
 extern bool func_z_10_common_are_same_timer_counter(unsigned int * timer_counter_1, unsigned int * timer_counter_2);
 // **************************************** PID
-
+// PID値を取得する関数
+extern const ipd_para_t * func_z_10_common_fetch_ipd_para(void);
 // **************************************** コース
 
 // **************************************** キャリブ

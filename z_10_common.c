@@ -9,9 +9,9 @@ static char timer_char[] = {'0', ':', '0', '0', ':', '0', '0' }
 static unsigned int timer_counter = 0;
 // **************************************** PID
 static ipd_para_t ipd_para = {
-  {0, 0, 0, 0, 0},
-  {0, 0, 0, 0, 0},
-  {0, 0, 0, 0, 0}
+  {0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0},
+  {0, 0, 0, 0, 0, 0}
 };
 // **************************************** コース
 static cource_t cource = c_1_hasitemae;
@@ -55,11 +55,11 @@ void func_z_10_common_increment_timer_counter(void){
     timer_value.millisec_10++;
   }else{
     timer_value.millisec_10 = 0;
-    if(timer_value.sec < 58){
+    if(timer_value.sec <= 58){
       timer_value.sec++;
     }else{
       timer_value.sec = 0;
-      if(timer_value.minute < 8){
+      if(timer_value.minute <= 8){
         timer_value.minute++;
       }else{
         // 0:00:00に初期化（timer_countは個別に初期化すること）
@@ -87,4 +87,9 @@ bool func_z_10_common_are_same_timer_counter(unsigned int * timer_counter_1, uns
     return false;
   }
   return true;
+}
+
+////////////////////////////////////////////////////////
+const ipd_para_t * func_z_10_common_fetch_ipd_para(void){
+  return &ipd_para;
 }
