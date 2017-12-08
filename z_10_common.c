@@ -90,6 +90,74 @@ bool func_z_10_common_are_same_timer_counter(unsigned int * timer_counter_1, uns
 }
 
 ////////////////////////////////////////////////////////
-const ipd_para_t * func_z_10_common_fetch_ipd_para(void){
-  return &ipd_para;
+const pid_para_t * func_z_10_common_fetch_pid_para(void){
+  return &pid_para;
+}
+void func_z_10_common_update_integrated_value(value_t * value){
+  value->integrated_value = 10 * (value->integer_10) + (value->integer_1) + 0.1 * (value->decimal_first) + 0.01 * (value->decimal_second) + 0.001 * (value->decimal_third);
+  return;
+}
+void func_z_10_common_increment_num_in_value(value_t * value, int keta){
+  unsigned int  * p_int;
+  switch (keta) {
+    case 2:
+      p_int = &(value->integer_10);
+      break;
+    case 1:
+      p_int = &(value->integer_1);
+      break;
+    case -1:
+      p_int = &(value->decimal_first);
+      break;
+    case -2:
+      p_int = &(value->decimal_second);
+      break;
+    case -3:
+      p_int = &(value->decimal_third);
+      break;
+    default:
+      p_int = null;
+      break;
+  }
+  if(p_int == null){
+    return;
+  }
+  if((*p_int) <= 8){
+    (*p_int)++;
+    func_z_10_common_update_integrated_value(value);
+    return;
+  }
+  return;
+}
+void func_z_10_common_decrement_num_in_value(value_t * value, int keta){
+  unsigned int  * p_int;
+  switch (keta) {
+    case 2:
+      p_int = &(value->integer_10);
+      break;
+    case 1:
+      p_int = &(value->integer_1);
+      break;
+    case -1:
+      p_int = &(value->decimal_first);
+      break;
+    case -2:
+      p_int = &(value->decimal_second);
+      break;
+    case -3:
+      p_int = &(value->decimal_third);
+      break;
+    default:
+      p_int = null;
+      break;
+  }
+  if(p_int == null){
+    return;
+  }
+  if((*p_int) >= 1){
+    (*p_int)--;
+    func_z_10_common_update_integrated_value(value);
+    return;
+  }
+  return;
 }

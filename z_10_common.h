@@ -19,14 +19,14 @@ typedef struct {
   unsigned int decimal_first; //小数第一位
   unsigned int decimal_second; //小数第二位
   unsigned int decimal_third; //小数第三位
-  double value; // 上記の情報を統合して得られる数
+  double integrated_value; // 上記の情報を統合して得られる数
 }value_t;
 
 typedef struct {
   value_t p; //P
   value_t i; //I
   value_t d; //D
-}ipd_para_t;
+}pid_para_t;
 
 // コース
 typdef enum {c_1_hasitemae, c_2_hasiowari, c_3_tonnnerutemae, c_4_tonnneruowari, c_5_goaltemae}cource_t;
@@ -59,7 +59,13 @@ extern bool func_z_10_common_are_same_timer(timer_t * timer_1, timer_t * timer_2
 extern bool func_z_10_common_are_same_timer_counter(unsigned int * timer_counter_1, unsigned int * timer_counter_2);
 // **************************************** PID
 // PID値を取得する関数(res->p.valueでアクセスできる，resはこの関数の返り値)
-extern const ipd_para_t * func_z_10_common_fetch_ipd_para(void);
+extern const pid_para_t * func_z_10_common_fetch_pid_para(void);
+// value_tのintegrated_valueを更新する
+extern void func_z_10_common_update_integrated_value(value_t * value);
+// value_tの指定桁(2, 1, -1, -2, -3の5種類．それぞれ，十の位，一の位，小数第一位，小数第二位，小数第三位に対応)をインクリメントする関数．
+extern void func_z_10_common_increment_num_in_value(value_t * value, int keta);
+// value_tの指定桁(2, 1, -1, -2, -3の5種類．それぞれ，十の位，一の位，小数第一位，小数第二位，小数第三位に対応)をデクリメントする関数．
+extern void func_z_10_common_decrement_num_in_value(value_t * value, int keta);
 // **************************************** コース
 
 // **************************************** キャリブ
