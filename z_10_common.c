@@ -89,7 +89,7 @@ bool func_z_10_common_are_same_timer_counter(unsigned int * timer_counter_1, uns
 }
 
 ////////////////////////////////////////////////////////
-const pid_para_t * func_z_10_common_fetch_pid_para(void){
+pid_para_t * func_z_10_common_fetch_pid_para(void){
   return &pid_para;
 }
 void func_z_10_common_update_integrated_value(value_t * value){
@@ -171,4 +171,25 @@ void func_z_10_common_set_value(value_t * value, unsigned int integer_10_hoge, u
 ////////////////////////////////////////////////////////
 const cource_t * func_z_10_common_fetch_cource(void){
   return &cource;
+}
+void func_z_10_common_fetch_cource(cource_t cource_hoge){
+  cource = cource_hoge;
+  return;
+}
+////////////////////////////////////////////////////////
+const math_features_t * func_z_10_common_fetch_calib_black(void){
+  return &black_info;
+}
+void func_z_10_common_fetch_calib_black(unsigned int min_hoge, unsigned int max_hoge, double ave_hoge){
+  black_info.min = min_hoge;
+  black_info.max = max_hoge;
+  black_info.ave = ave_hoge;
+}
+const math_features_t * func_z_10_common_fetch_calib_white(void){
+  return &white_info;
+}
+void func_z_10_common_fetch_calib_white(unsigned int min_hoge, unsigned int max_hoge, double ave_hoge){
+  white_info.min = min_hoge;
+  white_info.max = max_hoge;
+  white_info.ave = ave_hoge;
 }

@@ -58,8 +58,8 @@ extern bool func_z_10_common_are_same_timer(timer_t * timer_1, timer_t * timer_2
 // 2つのタイマカウンタの値が同じか同じでないか判別する関数
 extern bool func_z_10_common_are_same_timer_counter(unsigned int * timer_counter_1, unsigned int * timer_counter_2);
 // **************************************** PID
-// PID値を取得する関数(res->p.valueでアクセスできる，resはこの関数の返り値)
-extern const pid_para_t * func_z_10_common_fetch_pid_para(void);
+// PID値を取得する関数(res->p.valueでアクセスできる，resはこの関数の返り値．PIDの関数の設計を間違えたので返り値をconstに出来なかった．)
+extern pid_para_t * func_z_10_common_fetch_pid_para(void);
 // value_tのintegrated_valueを更新する
 extern void func_z_10_common_update_integrated_value(value_t * value);
 // value_tの指定桁(2, 1, -1, -2, -3の5種類．それぞれ，十の位，一の位，小数第一位，小数第二位，小数第三位に対応)をインクリメントする関数．
@@ -71,6 +71,16 @@ extern void func_z_10_common_set_value(value_t * value, unsigned int integer_10_
 // **************************************** コース
 // コースの値を取得する関数
 extern const cource_t * func_z_10_common_fetch_cource(void);
+// コースの値を変更する関数
+extern void func_z_10_common_fetch_cource(cource_t cource_hoge);
 // **************************************** キャリブ
+// キャリブの値(黒)を取得する関数
+extern const math_features_t * func_z_10_common_fetch_calib_black(void);
+// キャリブの値(黒)を変更する関数
+extern void func_z_10_common_fetch_calib_black(unsigned int min_hoge, unsigned int max_hoge, double ave_hoge);
+// キャリブの値(白)を取得する関数
+extern const math_features_t * func_z_10_common_fetch_calib_white(void);
+// キャリブの値(白)を変更する関数
+extern void func_z_10_common_fetch_calib_white(unsigned int min_hoge, unsigned int max_hoge, double ave_hoge);
 
 #endif
