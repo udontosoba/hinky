@@ -66,6 +66,8 @@ extern void func_z_10_common_update_integrated_value(value_t * value);
 extern void func_z_10_common_increment_num_in_value(value_t * value, int keta);
 // value_tの指定桁(2, 1, -1, -2, -3の5種類．それぞれ，十の位，一の位，小数第一位，小数第二位，小数第三位に対応)をデクリメントする関数．
 extern void func_z_10_common_decrement_num_in_value(value_t * value, int keta);
+// value_tの値を設定する(設定する十の位，一の位，小数第一位，小数第二位，小数第三位の情報が必要)
+extern void func_z_10_common_set_value(value_t * value, unsigned int integer_10_hoge, unsigned int integer_1_hoge, unsigned int decimal_first_hoge, unsigned int decimal_second_hoge, unsigned int decimal_third_hoge);
 // **************************************** コース
 
 // **************************************** キャリブ

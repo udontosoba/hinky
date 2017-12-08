@@ -161,3 +161,11 @@ void func_z_10_common_decrement_num_in_value(value_t * value, int keta){
   }
   return;
 }
+void func_z_10_common_set_value(value_t * value, unsigned int integer_10_hoge, unsigned int integer_1_hoge, unsigned int decimal_first_hoge, unsigned int decimal_second_hoge, unsigned int decimal_third_hoge){
+  value->integer_10 = integer_10_hoge;
+  value->integer_1 = integer_1_hoge;
+  value->decimal_first = decimal_first_hoge;
+  value->decimal_second = decimal_second_hoge;
+  value->decimal_third = decimal_third_hoge;
+  func_z_10_common_update_integrated_value(value);
+}
