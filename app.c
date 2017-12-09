@@ -57,11 +57,11 @@ void main_task(intptr_t unused) {
   int steer = 0;             //ハンドル操作量
 
   // 目標値を決定する
-  mid_point = ev3_color_sensor_get_reflect(right_color_sensor);
+  mid_point = ev3_color_sensor_get_reflect(left_color_sensor);
 
   while(1){
     //明るさ取得
-    int reflect_val = ev3_color_sensor_get_reflect(right_color_sensor);
+    int reflect_val = ev3_color_sensor_get_reflect(left_color_sensor);
 
     //ハンドル操作量決定
     if(reflect_val > mid_point){  //目標値より白い
