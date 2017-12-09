@@ -1,7 +1,7 @@
 /**
  * TOPPERS/EV3　サンプル　「黒い線に沿って進む」.
  * 動作説明　　白と黒の境界線に沿って進む。
- *           カラーセンサの出力の目標値を白と黒の中間値としている  
+ *           カラーセンサの出力の目標値を白と黒の中間値としている
  */
 
 #include "ev3api.h"
@@ -9,29 +9,47 @@
 
 /**
  * ポートの接続対応
- * Touch sensor: Port 2
- * Color sensor: Port 3
- * USonic sensor: Port 4
- * Left  motor:  Port B
- * Right motor:  Port C
+ * input
+ * 1 : タッチセンサ(touch_sensor)
+ * 2 : 左カラーセンサ(left_color_sensor)
+ * 3 : 右カラーセンサ(right_color_sensor)
+ * 4 : 測距センサ(distance_measuring_sensor)
+ * output
+ * A :
+ * B : 左車輪モータ(left_motor)
+ * C : 右車輪モータ(right_motor)
+ * D : ビー玉用サーボモータ(motor_for_marble)
  */
+ // input
+ const int touch_sensor = EV3_PORT_1;
+ const int left_color_sensor = EV3_PORT_2;
+ const int right_color_sensor = EV3_PORT_3;
+ const int distance_measuring_sensor = EV3_PORT_4;
 
-const int touch_sensor = EV3_PORT_2;
-const int color_sensor = EV3_PORT_3;
-const int u_sonic_sensor = EV3_PORT_4;
-const int left_motor = EV3_PORT_B;
-const int right_motor = EV3_PORT_C;
+ // output
+ const int left_motor = EV3_PORT_B;
+ const int right_motor = EV3_PORT_C;
+ const int motor_for_marble = EV3_PORT_D;
 
 //メインタスク
 void main_task(intptr_t unused) {
-  //モーターポートを設定 
-  ev3_motor_config(left_motor, LARGE_MOTOR);
-  ev3_motor_config(right_motor, LARGE_MOTOR);
-
-  //センサーポートを設定
+  // input
+  // タッチセンサのポート情報
   ev3_sensor_config(touch_sensor, TOUCH_SENSOR);
-  ev3_sensor_config(color_sensor, COLOR_SENSOR);
-  ev3_sensor_config(u_sonic_sensor, ULTRASONIC_SENSOR);
+  // 左カラーセンサのポート情報
+  ev3_sensor_config(left_color_sensor, COLOR_SENSOR);
+  // 右カラーセンサのポート情報
+  ev3_sensor_config(right_color_sensor, COLOR_SENSOR);
+  // 測距センサのポート情報
+  ev3_sensor_config(distance_measuring_sensor, ULTRASONIC_SENSOR);
+
+  // output
+  // 左モータのポート情報
+  ev3_motor_config(left_motor, LARGE_MOTOR);
+  // 右モータのポート情報
+  ev3_motor_config(right_motor, LARGE_MOTOR);
+  // ビー玉用サーボモータのポート情報
+  ev3_motor_config(motor_for_marble, MEDIUM_MOTOR);
 
   //変数宣言
   const int mid_point = 50;  //明るさの目標値
@@ -40,13 +58,13 @@ void main_task(intptr_t unused) {
 
   while(1){
     //明るさ取得
-    int reflect_val = ev3_color_sensor_get_reflect(color_sensor);
+    int reflect_val = ev3_color_sensor_get_reflect(right_color_sensor);
 
     //ハンドル操作量決定
     if(reflect_val > mid_point){  //目標値より白い
-      steer = 50;     //右に曲がる
-    }else{                        //目標値より黒い
       steer = -50;    //左に曲がる
+    }else{                        //目標値より黒い
+      steer = 50;     //右に曲がる
     }
 
     //モータ操作量を更新
