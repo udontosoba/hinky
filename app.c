@@ -6,6 +6,7 @@
 
 #include "ev3api.h"
 #include "app.h"
+#include <stdbool.h>
 
 /**
  * ポートの接続対応
@@ -59,15 +60,43 @@ void main_task(intptr_t unused) {
   // 目標値を決定する
   mid_point = ev3_color_sensor_get_reflect(left_color_sensor);
 
+  //赤判定
+  bool isOnRed_pre = false;
+  bool isOnRed_cur = false;
+
+  colorid_t colorid = ev3_color_sensor_get_color(right_color_sensor);
+  isOnRed_cur = check_rising(colorid);
+  isOnRed_pre = check_rising(colorid);
+
   while(1){
     //明るさ取得
     int reflect_val = ev3_color_sensor_get_reflect(left_color_sensor);
+    //色取得
+    colorid = ev3_color_sensor_get_color(right_color_sensor);
 
+    if(isOnRed_cur == false){
+      isOnRed_pre = isOnRed_cur;
+      // 立ち上がり(チャタリング対策済み)を検知するとisOnReadにtrueを入れる．
+      isOnRed_cur = check_rising(colorid);
+    }else{
+      isOnRed_pre = isOnRed_cur;
+      // 立ち下がり(チャタリング対策済み)を検知するとisOnReadにfalseを入れる．
+      isOnRed_cur = (!(check_falling(colorid)));
+    }
+    if(isOnRed_cur != isOnRed_pre){
+      if(isOnRed_cur == True){
+        // 赤のラインに通過始め
+        
+      }else{
+        // 赤のラインに通過後
+
+      }
+    }
     //ハンドル操作量決定
     if(reflect_val > mid_point){  //目標値より白い
-      steer = -10;    //左に曲がる
+      steer = -50;    //左に曲がる
     }else{                        //目標値より黒い
-      steer = 10;     //右に曲がる
+      steer = 50;     //右に曲がる
     }
 
     //モータ操作量を更新
@@ -82,4 +111,33 @@ void main_task(intptr_t unused) {
   }
 
   return;
+}
+
+bool check_rising(colorid_t colorid){
+  static int i = 0;
+  if(colorid == COLOR_RED){
+    i++;
+  }else{
+    i=0;
+  }
+  if(i >= 5){
+    i = 0;
+    return true;
+  }else{
+    return false;
+  }
+}
+bool check_falling(colorid_t colorid){
+  static int i = 0;
+  if(colorid != COLOR_RED){
+    i++;
+  }else{
+    i=0;
+  }
+  if(i >= 5){
+    i = 0;
+    return true;
+  }else{
+    return false;
+  }
 }
