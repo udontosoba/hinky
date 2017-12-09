@@ -52,9 +52,12 @@ void main_task(intptr_t unused) {
   ev3_motor_config(motor_for_marble, MEDIUM_MOTOR);
 
   //変数宣言
-  const int mid_point = 50;  //明るさの目標値
-  const int power = 30;      //モーターパワーj
+  int mid_point = 50;  //明るさの目標値
+  const int power = 100;      //モーターパワーj
   int steer = 0;             //ハンドル操作量
+
+  // 目標値を決定する
+  mid_point = ev3_color_sensor_get_reflect(right_color_sensor);
 
   while(1){
     //明るさ取得
@@ -62,9 +65,9 @@ void main_task(intptr_t unused) {
 
     //ハンドル操作量決定
     if(reflect_val > mid_point){  //目標値より白い
-      steer = -50;    //左に曲がる
+      steer = -10;    //左に曲がる
     }else{                        //目標値より黒い
-      steer = 50;     //右に曲がる
+      steer = 10;     //右に曲がる
     }
 
     //モータ操作量を更新
@@ -75,7 +78,7 @@ void main_task(intptr_t unused) {
     sprintf(msg, "reflect_val:%03d steer:%03d", reflect_val, steer);
     ev3_lcd_draw_string(msg,0,20);
 
-    tslp_tsk(10); //スリープ　10[ms]
+    tslp_tsk(1); //スリープ　10[ms]
   }
 
   return;
